@@ -7,7 +7,7 @@ function App() {
     /*
  * Settings
  */
-    var settings = {
+    const settings = {
       particles: {
         length: 3500, // maximum amount of particles
         duration: 2.5, // particle duration in sec
@@ -21,18 +21,18 @@ function App() {
      * RequestAnimationFrame polyfill by Erik Möller
      */
     (function () {
-      var b = 0;
-      var c = ["ms", "moz", "webkit", "o"];
-      for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
+      let b = 0;
+      const c = ["ms", "moz", "webkit", "o"];
+      for (let a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
         window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"];
         window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"]
             || window[c[a] + "CancelRequestAnimationFrame"]
       }
       if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = function (h, e) {
-          var d = new Date().getTime();
-          var f = Math.max(0, 16 - (d - b));
-          var g = window.setTimeout(function () {
+        window.requestAnimationFrame = function (h ){
+          const d = new Date().getTime();
+          const f = Math.max(0, 16 - (d - b));
+          const g = window.setTimeout(function () {
             h(d + f)
           }, f);
           b = d + f;
@@ -49,7 +49,7 @@ function App() {
     /*
      * Point class
      */
-    var Point = (function () {
+    const Point = (function () {
       function Point(x, y) {
         this.x = (typeof x !== 'undefined') ? x : 0;
         this.y = (typeof y !== 'undefined') ? y : 0;
@@ -68,7 +68,7 @@ function App() {
         return this;
       };
       Point.prototype.normalize = function () {
-        var length = this.length();
+        const length = this.length();
         this.x /= length;
         this.y /= length;
         return this;
@@ -79,11 +79,11 @@ function App() {
     /*
      * Particle class
      */
-    var Particle = (function () {
+    const Particle = (function () {
       function Particle() {
-        this.position = new Point();
-        this.velocity = new Point();
-        this.acceleration = new Point();
+        this.position = new Point(0, 0);
+        this.velocity = new Point(0, 0);
+        this.acceleration = new Point(0, 0);
         this.age = 0;
       }
 
@@ -108,7 +108,7 @@ function App() {
           return (--t) * t * t + 1;
         }
 
-        var size = image.width * ease(this.age / settings.particles.duration);
+        const size = image.width * ease(this.age / settings.particles.duration);
         context.globalAlpha = 1 - this.age / settings.particles.duration;
         context.drawImage(image, this.position.x - size / 2,
             this.position.y - size / 2, size, size);
@@ -119,8 +119,8 @@ function App() {
     /*
      * ParticlePool class
      */
-    var ParticlePool = (function () {
-      var particles,
+    const ParticlePool = (function () {
+      let particles,
           firstActive = 0,
           firstFree = 0,
           duration = settings.particles.duration;
@@ -128,7 +128,7 @@ function App() {
       function ParticlePool(length) {
         // create and populate particle pool
         particles = new Array(length);
-        for (var i = 0; i < particles.length; i++) {
+        for (let i = 0; i < particles.length; i++) {
           particles[i] = new Particle();
         }
       }
@@ -138,18 +138,18 @@ function App() {
 
         // handle circular queue
         firstFree++;
-        if (firstFree == particles.length) {
+        if (firstFree === particles.length) {
           firstFree = 0;
         }
-        if (firstActive == firstFree) {
+        if (firstActive === firstFree) {
           firstActive++;
         }
-        if (firstActive == particles.length) {
+        if (firstActive === particles.length) {
           firstActive = 0;
         }
       };
       ParticlePool.prototype.update = function (deltaTime) {
-        var i;
+        let i;
 
         // update active particles
         if (firstActive < firstFree) {
@@ -168,9 +168,9 @@ function App() {
 
         // remove inactive particles
         while (particles[firstActive].age >= duration && firstActive
-        != firstFree) {
+        !== firstFree) {
           firstActive++;
-          if (firstActive == particles.length) {
+          if (firstActive === particles.length) {
             firstActive = 0;
           }
         }
@@ -200,7 +200,7 @@ function App() {
      * Putting it all together
      */
     (function (canvas) {
-      var context = canvas.getContext('2d'),
+      let context = canvas.getContext('2d'),
           particles = new ParticlePool(settings.particles.length),
           particleRate = settings.particles.length
               / settings.particles.duration, // particles/sec
@@ -216,15 +216,15 @@ function App() {
       }
 
       // creating the particle image using a dummy canvas
-      var image = (function () {
-        var canvas = document.createElement('canvas'),
+      const image = (function () {
+        const canvas = document.createElement('canvas'),
             context = canvas.getContext('2d');
         canvas.width = settings.particles.size;
         canvas.height = settings.particles.size;
 
         // helper function to create the path
         function to(t) {
-          var point = pointOnHeart(t);
+          const point = pointOnHeart(t);
           point.x = settings.particles.size / 3 + point.x
               * settings.particles.size / 550;
           point.y = settings.particles.size / 3 - point.y
@@ -234,8 +234,8 @@ function App() {
 
         // create the path
         context.beginPath();
-        var t = -Math.PI;
-        var point = to(t);
+        let t = -Math.PI;
+        let point = to(t);
         context.moveTo(point.x, point.y);
         while (t < Math.PI) {
           t += 0.01; // baby steps!
@@ -244,10 +244,10 @@ function App() {
         }
         context.closePath();
         // create the fill
-        context.fillStyle = '#ea80b0';
+        context.fillStyle = '#99ff99';
         context.fill();
         // create the image
-        var image = new Image();
+        const image = new Image();
         image.src = canvas.toDataURL();
         return image;
       })();
@@ -258,7 +258,7 @@ function App() {
         requestAnimationFrame(render);
 
         // update time
-        var newTime = new Date().getTime() / 1000,
+        const newTime = new Date().getTime() / 1000,
             deltaTime = newTime - (time || newTime);
         time = newTime;
 
@@ -266,10 +266,10 @@ function App() {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         // create new particles
-        var amount = particleRate * deltaTime;
-        for (var i = 0; i < amount; i++) {
-          var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
-          var dir = pos.clone().length(settings.particles.velocity);
+        const amount = particleRate * deltaTime;
+        for (let i = 0; i < amount; i++) {
+          const pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
+          const dir = pos.clone().length(settings.particles.velocity);
           particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y,
               dir.x, -dir.y);
         }
@@ -297,9 +297,7 @@ function App() {
 
   return (
       <>
-        <audio src="../public/VeDayNhe.mp3" autoPlay loop/>
-        <audio src="../public/VeDayNhe.mp3" autoPlay loop/>
-
+        <audio src="/VeDayNhe.mp3" autoPlay loop/>
         <canvas id="pinkboard">
           <canvas id="pinkboard">
           </canvas>
