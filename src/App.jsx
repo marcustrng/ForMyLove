@@ -309,7 +309,7 @@ function App() {
           transform: "translate(-50%, -50%)",
           zIndex: 2
         }}>
-          <p>Hà Phương</p>
+          <p>Ngố Oishi</p>
         </div>
         <audio src="/VeDayNhe.mp3" autoPlay loop/>
         <canvas id="pinkboard">
