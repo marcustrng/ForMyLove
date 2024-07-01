@@ -312,23 +312,15 @@ function App() {
           <label>Em ❤️</label>
         </div>
         {/*<audio src="/VeDayNhe.mp3" autoPlay loop/>*/}
-        {/*<audio src="/VeDayNhe.mp3" autoPlay loop/>*/}
-        <iframe
-            src="/VeDayNhe.mp3"
-            allow='autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture'
-            allowFullScreen
-            title='video'
-            style={{
-              position: "absolute",
-              left: `calc(50% + ${textPosition.x}px)`,
-              top: `calc(47% - ${textPosition.y}px)`,
-              transform: "translate(-50%, -50%)",
-              width: "80%",
-              height : "80%",
-              visibility: "hidden",
-              zIndex: 0
-            }}
-        />
+        <audio controls src="/VeDayNhe.mp3" autoPlay loop style={{
+          position: "absolute",
+          left: `calc(50% + ${textPosition.x}px)`,
+          top: `calc(47% - ${textPosition.y}px)`,
+          transform: "translate(-50%, -50%)",
+          width: "20%",
+          height : "80%",
+          zIndex: 2
+        }}/>
 
         <canvas id="pinkboard">
           <canvas id="pinkboard">
