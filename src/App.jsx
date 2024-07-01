@@ -246,7 +246,7 @@ function App() {
         }
         context.closePath();
         // create the fill
-        context.fillStyle = '#ec99ff';
+        context.fillStyle = '#99ff99';
         context.fill();
         // create the image
         const image = new Image();
