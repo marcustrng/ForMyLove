@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import './App.css'
 
 function App() {
-  const [textPosition, setTextPosition] = useState({x: 0, y: 0});
+  const [textPosition] = useState({x: 0, y: 0});
 
   useEffect(() => {
 
@@ -303,9 +303,9 @@ function App() {
           position: "absolute",
           fontFamily: "cursive",
           fontSize: "50px",
-          color: "red",
+          color: "#ffcc99",
           left: `calc(50% + ${textPosition.x}px)`,
-          top: `calc(50% - ${textPosition.y}px)`,
+          top: `calc(47% - ${textPosition.y}px)`,
           transform: "translate(-50%, -50%)",
           zIndex: 2
         }}>
