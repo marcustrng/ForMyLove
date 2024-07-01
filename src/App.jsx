@@ -1,7 +1,9 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import './App.css'
 
 function App() {
+  const [textPosition, setTextPosition] = useState({x: 0, y: 0});
+
   useEffect(() => {
 
     /*
@@ -29,7 +31,7 @@ function App() {
             || window[c[a] + "CancelRequestAnimationFrame"]
       }
       if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = function (h ){
+        window.requestAnimationFrame = function (h) {
           const d = new Date().getTime();
           const f = Math.max(0, 16 - (d - b));
           const g = window.setTimeout(function () {
@@ -297,6 +299,18 @@ function App() {
 
   return (
       <>
+        <div style={{
+          position: "absolute",
+          fontFamily: "cursive",
+          fontSize: "50px",
+          color: "red",
+          left: `calc(50% + ${textPosition.x}px)`,
+          top: `calc(50% - ${textPosition.y}px)`,
+          transform: "translate(-50%, -50%)",
+          zIndex: 2
+        }}>
+          <p>Hà Phương</p>
+        </div>
         <audio src="/VeDayNhe.mp3" autoPlay loop/>
         <canvas id="pinkboard">
           <canvas id="pinkboard">
