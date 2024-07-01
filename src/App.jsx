@@ -297,7 +297,8 @@ function App() {
 
   return (
       <>
-        <audio autoPlay src="../public/VeDayNhe.mp3" loop/>
+        <audio src="../public/VeDayNhe.mp3" autoPlay loop/>
+
         <canvas id="pinkboard">
           <canvas id="pinkboard">
           </canvas>
