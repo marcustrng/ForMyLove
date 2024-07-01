@@ -246,7 +246,7 @@ function App() {
         }
         context.closePath();
         // create the fill
-        context.fillStyle = '#99ff99';
+        context.fillStyle = '#ec99ff';
         context.fill();
         // create the image
         const image = new Image();
@@ -309,9 +309,27 @@ function App() {
           transform: "translate(-50%, -50%)",
           zIndex: 2
         }}>
-          <p>Em ❤️</p>
+          <label>Em ❤️</label>
         </div>
-        <audio src="/VeDayNhe.mp3" autoPlay loop/>
+        {/*<audio src="/VeDayNhe.mp3" autoPlay loop/>*/}
+        {/*<audio src="/VeDayNhe.mp3" autoPlay loop/>*/}
+        <iframe
+            src="https://www.youtube.com/embed/fEr9hUW-5Bo?autoplay=1&mute=0"
+            allow='autoplay; encrypted-media; muted; accelerometer; gyroscope; picture-in-picture'
+            allowFullScreen
+            title='video'
+            style={{
+              position: "absolute",
+              left: `calc(50% + ${textPosition.x}px)`,
+              top: `calc(47% - ${textPosition.y}px)`,
+              transform: "translate(-50%, -50%)",
+              width: "80%",
+              height : "80%",
+              visibility: "hidden",
+              zIndex: 0
+            }}
+        />
+
         <canvas id="pinkboard">
           <canvas id="pinkboard">
           </canvas>
